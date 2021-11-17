@@ -1,0 +1,28 @@
+{
+  "name": "angularjs-crud-lexart",
+  "version": "1.0.0",
+  "description": "training angularjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasbrito3001/training-angularjs-crud.git"
+  },
+  "keywords": [
+    "angularjs",
+    "training",
+    "crud"
+  ],
+  "author": "Lucas de Brito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasbrito3001/training-angularjs-crud/issues"
+  },
+  "homepage": "https://github.com/lucasbrito3001/training-angularjs-crud#readme",
+  "dependencies": {
+    "angular-ui-bootstrap": "^2.5.6",
+    "axios": "^0.24.0"
+  }
+}
