@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt" ng-app="indexPage">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="../libs/js/angular-ui-router.min.js"></script>
-    <script src="../libs/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../libs/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- <script src="../../node_modules/@uirouter/angularjs/release/angular-ui-router.min.js"></script> -->
+    <script src="../../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" href="../libs/css/bootstrap.css">
+    <script type="text/javascript" src="./router.js"></script>
     <link rel="shortcut icon" href="https://img.icons8.com/color/48/000000/angularjs.png" type="image/x-icon">
     <title>Training AngularJS</title>
 </head>
-<body ng-app="angular">
-    <div class="p-2">
-        <ui-view></ui-view>
-        <h1>Hello world</h1>
-        <button type="button" class="btn btn-primary">Primary</button>
+<body ng-controller="indexController">
+    <ui-view class="ng-scope"></ui-view>
+    
+    <div>
+        <header>
+            <h1 class="m-3 h3 text-primary">YouBank</h1>
+        </header>
+        <main class="shadow-lg col-6 mx-auto p-3">
+            <label>Saldo: {{2000 | currency}}</label>
+        </main>
     </div>
+
+    <!-- CONTROLLERS -->
+    <script src="../app/index.js"></script>
+    <script src="../app/components/balance/controllers/balanceCtrl.js"></script>
 </body>
 </html>

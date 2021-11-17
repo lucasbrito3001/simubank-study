@@ -1,0 +1,17 @@
+{
+  "name": "angular-bower",
+  "authors": [
+    "Lucas de Brito <lucas.debrito@lexartlabs.com>"
+  ],
+  "description": "training angularjs",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
