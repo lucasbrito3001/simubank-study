@@ -1,4 +1,4 @@
-const API_URL = 'https://crudcrud.com/api/b4484ac9a3fe49c9a349b9120c26aa92STOP';
+const API_URL = ''; // YOUR CRUD CRUD LINK HERE
 
 angular.module('indexPage').controller('balanceCtrl', ['$scope', '$http',
     function ($scope, $http) {
