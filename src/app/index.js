@@ -1,4 +1,4 @@
-var Module = angular.module('indexPage').controller('indexController', ['$scope',
-function ($scope) {
-    
+var Module = angular.module('indexPage').controller('indexController', ['$scope', '$state',
+function ($scope, $state) {
+    $state.go('balance')
 }]);

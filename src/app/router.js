@@ -1,17 +1,19 @@
 var myApp = angular.module('indexPage', ['ui.router']);
 
-myApp.config(function ($stateProvider) {
+myApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+  $urlRouterProvider.otherwise('/');
   
   $stateProvider
     .state('balance', {
       url: '/balance',
-      templateUrl: './components/balance/view/balanceView.html',
-      controller: 'balanceCtrl'
+      templateUrl: './components/balance/views/balanceView.html',
+      controller: 'balanceCtrl',
     })
 
     .state('statement', {
       url: '/statement',
-      templateUrl: './components/statement/view/balanceView.html',
+      templateUrl: './components/statement/views/statementView.html',
       controller: 'statementCtrl'
     })
 });

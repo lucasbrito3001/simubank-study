@@ -1,1 +1,137 @@
-<div><h2>123</h2></div>
+<div class="container mt-3">
+    <main class="row" ng-init="startCtrl()">
+        <section class="col-md-4 col-6 mx-auto p-3">
+            <div class="shadow p-2 rounded">
+                <label class="lead">Saldo Positivo</label><br>
+                <label class="h5 text-success">{{reducedInputs | currency:"R$"}}</label>
+            </div>
+        </section>
+        <section class="col-md-4 col-6 mx-auto p-3">
+            <div class="shadow p-2 rounded">
+                <label class="lead">Saldo Negativo</label><br>
+                <label class="h5 text-danger">{{reducedOutputs | currency:"R$"}}</label>
+            </div>
+        </section>
+        <section class="col-md-4 col-12 mx-auto p-3">
+            <div class="shadow p-2 rounded">
+                <label class="lead">Saldo Total</label><br>
+                <label class="h5">{{reducedInputs - reducedOutputs | currency:"R$"}}</label>
+            </div>
+        </section>
+    </main>
+    <hr>
+    <aside class="row">
+        <section class="col-md-6 col-12 mx-auto p-3 inputs-outputs-sections">
+            <div class="shadow p-2 rounded">
+                <header>
+                    <span class="text-success">Entradas</span>
+                    <button 
+                        class="btn bg-white rounded-circle shadow add-delete-buttons text-success" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"
+                        ng-click="setTypeMovement('Entrada', null)"
+                    > + </button>
+                </header>
+                <div class="mt-2 row align-items-center" ng-repeat="(key, item) in inputsList" ng-if="inputsList.length > 0">
+                    <div class="col">
+                        <label>{{item.description}}</label><br>
+                        <label>{{item.value | currency:"R$"}}</label>
+                    </div>
+                    <div class="col">
+                        <div class="row justify-content-end">
+                            <div class="col-3 col-md-2">
+                                <img 
+                                    src="/src/app/assets/lapis.png" 
+                                    alt="edit" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#exampleModal"
+                                    ng-click="setTypeMovement('Editar', item)"
+                                />
+                            </div>
+                            <div class="col-3 col-md-2">
+                                <img src="/src/app/assets/excluir.png" alt="edit" ng-click="deleteItem(item)"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2" ng-if="inputsList.length === 0">
+                    <label>Não tem movimentos</label>
+                </div>
+            </div>
+        </section>
+        <section class="col-md-6 col-12 mx-auto p-3 inputs-outputs-sections">
+            <div class="shadow p-2 rounded">
+                <header>
+                    <span class="text-danger">Saídas</span>
+                    <button 
+                        class="btn bg-white rounded-circle shadow add-delete-buttons text-danger" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#exampleModal"
+                        ng-click="setTypeMovement('saída')"
+                    > + </button>
+                </header>
+                <div class="mt-2 row align-items-center" ng-repeat="(key, item) in outputsList" ng-if="outputsList.length > 0">
+                    <div class="col">
+                        <label>{{item.description}}</label><br>
+                        <label>{{item.value | currency:"R$"}}</label>
+                    </div>
+                    <div class="col">
+                        <div class="row justify-content-end">
+                            <div class="col-3 col-md-2">
+                                <img 
+                                    src="/src/app/assets/lapis.png" 
+                                    alt="edit" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#exampleModal"
+                                    ng-click="setTypeMovement('Editar', item)"
+                                />
+                            </div>
+                            <div class="col-3 col-md-2">
+                                <img src="/src/app/assets/excluir.png" alt="edit" ng-click="deleteItem(item)"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2" ng-if="outputsList.length === 0">
+                    <label>Não tem movimentos</label>
+                </div>
+            </div>
+        </section>
+    </aside>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 ng-if="typeMovement === 'Editar'" class="modal-title" id="exampleModalLabel">Editar item</h5>
+                    <h5 ng-if="typeMovement !== 'Editar'" class="modal-title" id="exampleModalLabel">Adicionar <span ng-class="(typeMovement === 'Entrada') ? 'text-success' : 'text-danger'">{{ typeMovement }}</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="description" placeholder="Ex: Salário" ng-model="itemInfos.description">
+                            <label for="description">Descrição</label><br>
+                        </div>
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="value" placeholder="Ex: 1200" ng-model="itemInfos.value">
+                            <label for="value">Valor</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button 
+                    type="button" 
+                    class="btn btn-primary" 
+                    ng-click="typeMovement === 'Editar' ? editItem(itemInfos) : addNewItem(itemInfos)"
+                    data-bs-dismiss="modal"
+                    >
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

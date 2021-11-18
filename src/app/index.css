@@ -1,0 +1,24 @@
+img[alt='view-hidden-eye'] {
+    width: 24px;
+    height: 24px;
+}
+
+ul {
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+.inputs-outputs-sections {
+    position: relative;
+}
+
+.add-delete-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    line-height: 22px;
+}
