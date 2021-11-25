@@ -1,4 +1,16 @@
+<header class="bg-info py-3 container-fluid">
+    <div class="row px-3">
+        <div class="col">
+            <h1 class=" mb-0 h3 text-white" style="font-weight: 100;">Olá, <span style="font-weight: 300;">{{ session[0].name }}!</span> </h1>
+            <h1 class=" my-0 h4 text-white" style="font-weight: 100;">Aproveite o <span style="font-weight: 500;">Simubank</span></h1>
+        </div>
+        <div class="col text-end align-self-center">
+            <button class="btn btn-link text-white" ng-click="closeSession()">Sair</button>
+        </div>
+    </div>
+</header>
 <div class="container mt-3">
+
     <main class="row" ng-init="startCtrl()">
         <section class="col-md-4 col-6 mx-auto p-3">
             <div class="shadow p-2 rounded">

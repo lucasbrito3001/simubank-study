@@ -2559,6 +2559,10 @@ textarea.form-control-lg {
   opacity: 0.65;
 }
 
+.btn-block {
+  width: 100%;
+}
+
 .form-range {
   width: 100%;
   height: 1.5rem;

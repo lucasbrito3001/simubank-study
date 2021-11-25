@@ -16,4 +16,16 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: './components/statement/views/statementView.html',
       controller: 'statementCtrl'
     })
+
+    .state('login', {
+      url: '/login',
+      templateUrl: './components/login/views/loginView.html',
+      controller: 'loginCtrl'
+    })
+
+    .state('register', {
+      url: '/register',
+      templateUrl: './components/register/views/registerView.html',
+      controller: 'registerCtrl'
+    })
 });
