@@ -1,8 +1,9 @@
 const API_URL = ''; // YOUR CRUD CRUD LINK HERE
 
-angular.module('indexPage').controller('balanceCtrl', ['$scope', '$http',
-    function ($scope, $http) {
+angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$http',
+    function ($scope, $state, $http) {
         // States
+        $scope.session = JSON.parse(window.localStorage.getItem('userSession'));
         $scope.typeMovement = '';
         $scope.idToEdit = '';
         $scope.itemInfos = {
@@ -19,6 +20,10 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$http',
 
         // Methods
         $scope.startCtrl = function () {
+            if(!$scope.session) {
+                window.localStorage.clear();
+                $state.go('login')
+            }
             $scope.getInputs(resIn => {
                 $scope.inputsList = resIn.data;
                 $scope.getOutputs(resOut => {
@@ -114,6 +119,11 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$http',
                         $scope.calculateBalances();
                     })
             })
+        }
+
+        $scope.closeSession = function () {
+            window.localStorage.clear();
+            $state.go('login');
         }
 
     }]);

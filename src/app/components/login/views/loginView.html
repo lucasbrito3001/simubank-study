@@ -1,0 +1,24 @@
+<div class="container full-height" align-v="center" ng-init="startComponent()">
+    <div class="row" style="width: 100%">
+        <div class="col-12 col-md-9 col-lg-6 mx-auto px-0">
+            <h1 style="font-weight: 100;">Acesse a sua conta Simubank!</h1>
+        </div>
+    </div>
+    <div class="row mt-3" style="width: 100%">
+        <div class="col-12 col-md-9 col-lg-6 mx-auto shadow-lg p-3">
+            <legend class="text-info h3" style="font-weight: 300;">Realizar login</legend>
+            <form ng-submit="login()">
+                <label for="email">e-mail:</label>
+                <input type="text" placeholder="Digite seu email" class="form-control" id="email" ng-model="email">
+                <label for="password" class="mt-3">senha:</label>
+                <input type="password" placeholder="Digite sua senha" class="form-control" id="password" ng-model="password">
+                <p class="mt-3 mb-0 text-danger">{{ loginMessage }}</p>
+                <input type="submit" class="btn btn-info text-white mt-3 btn btn-block" value="Entrar">
+            </form>
+        </div>
+    </div>
+    <div class="text-center col-12 col-md-9 col-lg-6 mt-2">
+        <span class="mr-2">Ainda não possui uma conta?</span> 
+        <a class="text-info" ui-sref="register" ui-sref-active="active">Registre-se</a>
+    </div>
+</div>
