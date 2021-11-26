@@ -1,4 +1,4 @@
-const API_URL = ''; // YOUR CRUD CRUD LINK HERE
+const API_URL = "https://finances-webapp.herokuapp.com/"; // YOUR CRUD CRUD LINK HERE
 
 angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$http',
     function ($scope, $state, $http) {
@@ -20,24 +20,22 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
 
         // Methods
         $scope.startCtrl = function () {
-            if(!$scope.session) {
+            if (!$scope.session) {
                 window.localStorage.clear();
                 $state.go('login')
             }
-            $scope.getInputs(resIn => {
+            $scope.getTransactions(resIn => {
                 $scope.inputsList = resIn.data;
-                $scope.getOutputs(resOut => {
-                    $scope.outputsList = resOut.data;
-                    $scope.calculateBalances();
-                })
+                $scope.calculateBalances();
+                // $scope.getOutputs(resOut => {
+                //     $scope.outputsList = resOut.data;
+                // })
             })
         }
 
-        $scope.getInputs = function (callback) {
-            $http.get(API_URL + '/inputs').then(res => {
-                callback({
-                    data: res.data
-                })
+        $scope.getTransactions = function (callback) {
+            $http.get(API_URL + 'transactions/filter/account?accountId=1').then(res => {
+                callback(res.data)
             })
         }
 
@@ -50,8 +48,8 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
         }
 
         $scope.calculateBalances = function () {
-            $scope.reducedInputs = $scope.inputsList.reduce((prev, next) => prev + next.value, 0);
-            $scope.reducedOutputs = $scope.outputsList.reduce((prev, next) => prev + next.value, 0);
+            $scope.reducedInputs = $scope.inputsList.length > 0 ? $scope.inputsList.reduce((prev, next) => prev + next.amount, 0) : 0;
+            $scope.reducedOutputs = $scope.outputsList.length > 0 ? $scope.outputsList.reduce((prev, next) => prev + next.value, 0) : 0;
         }
 
         $scope.setTypeMovement = function (type, item) {
@@ -89,7 +87,13 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
         }
 
         $scope.addNewInput = function (newInput) {
-            $http.post(API_URL + '/inputs', newInput).then(() => {
+            const teste = {
+                accountIdSender: 1,
+                accountIdRecipient: 1, 
+                typeTransaction: 1,
+                amount: 100
+            }
+            $http.post(API_URL + 'transactions/new', teste).then(() => {
                 $scope.getInputs(res => {
                     $scope.inputsList = res.data;
                     $scope.calculateBalances();
