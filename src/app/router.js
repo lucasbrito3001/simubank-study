@@ -5,6 +5,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   $urlRouterProvider.otherwise('/');
   
   $stateProvider
+    .state('home', {
+      url: '/',
+      templateUrl: './index.html',
+      controller: 'indexController',
+    })
+
     .state('balance', {
       url: '/balance',
       templateUrl: './components/balance/views/balanceView.html',
