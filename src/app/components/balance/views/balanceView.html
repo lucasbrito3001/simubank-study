@@ -1,132 +1,112 @@
-<header class="bg-info py-3 container-fluid">
+<header class="bg-info pt-3 pb-5 container-fluid">
     <div class="row px-3">
-        <div class="col">
-            <h1 class=" mb-0 h3 text-white" style="font-weight: 100;">Olá, <span style="font-weight: 300;">{{ session[0].name }}!</span> </h1>
-            <h1 class=" my-0 h4 text-white" style="font-weight: 100;">Aproveite o <span style="font-weight: 500;">Simubank</span></h1>
+        <div class="col-md-4 col-10 order-1 px-0">
+            <h1 class=" mb-0 h3 text-white" style="font-weight: 100;">
+                Olá, <span style="font-weight: 300;">{{ session.name }}!</span> 
+            </h1>
+            <h1 class=" my-0 h4 text-white" style="font-weight: 100;">
+                Aproveite o <span style="font-weight: 500;">Simubank</span>
+            </h1>
         </div>
-        <div class="col text-end align-self-center">
-            <button class="btn btn-link text-white" ng-click="closeSession()">Sair</button>
+        <div class="col-md-4 col-12 text-md-center text-start mx-auto p-0 order-md-2 order-3 mt-3 mt-md-0">
+            <p class="text-white lead mb-0"><span style="font-weight:500">Conta:</span> {{ session.accountId.padStart(6, '0') }}</p>
+            <p class="text-white lead mb-0"><span style="font-weight:500">Agência:</span> {{ session.agencyId }}</p>
+        </div>
+        <div class="col-md-4 col-2 text-center text-md-end align-self-center order-md-3 order-2">
+            <img src="/src/app/assets/power-off.png" alt="power-button" width="32" ng-click="closeSession()">
         </div>
     </div>
 </header>
-<div class="container mt-3">
+<main class="container home-infos">
 
-    <main class="row" ng-init="startCtrl()">
-        <section class="col-md-4 col-6 mx-auto p-3">
-            <div class="shadow p-2 rounded">
-                <label class="lead">Saldo Positivo</label><br>
-                <label class="h5 text-success">{{reducedInputs | currency:"R$"}}</label>
+    <section class="row rounded" ng-init="startCtrl()">
+        <div class="col-lg-6 col-md-5 col-12 mx-auto">
+            <div class="p-3 px-4 align-items-center bg-secondary rounded shadow-sm" style="display: flex">
+                <div class="col-12">
+                    <label class="lead">Saldo</label><br>
+                    <p class="h5 mb-0">{{reducedInputs | currency:"R$"}}</p>
+                    <span class="text-muted text">Disponível</span>
+                </div>
+                <!-- <div class="col-1">
+                    <img src="/src/app/assets/next.png" alt="" width="18">
+                </div> -->
             </div>
-        </section>
-        <section class="col-md-4 col-6 mx-auto p-3">
-            <div class="shadow p-2 rounded">
-                <label class="lead">Saldo Negativo</label><br>
-                <label class="h5 text-danger">{{reducedOutputs | currency:"R$"}}</label>
+        </div>
+        <div class="col-lg-6 col-md-7 col-12 mx-auto">
+            <div class="p-3 px-4 align-items-center bg-white shadow-sm rounded" style="display: flex">
+                <div class="col-11">
+                    <label class="lead">Transações pendentes</label><br>
+                    <p class="h5 mb-0">{{(reducedPendingInputs || 0) | currency:"R$"}}</p>
+                    <span class="text-muted text">Bloqueado</span>
+                </div>
+                <div class="col-1">
+                    <img src="/src/app/assets/next.png" alt="" width="18">
+                </div>
             </div>
-        </section>
-        <section class="col-md-4 col-12 mx-auto p-3">
-            <div class="shadow p-2 rounded">
-                <label class="lead">Saldo Total</label><br>
-                <label class="h5">{{reducedInputs - reducedOutputs | currency:"R$"}}</label>
-            </div>
-        </section>
-    </main>
+        </div>
+    </section>
     <hr>
-    <aside class="row">
-        <section class="col-md-6 col-12 mx-auto p-3 inputs-outputs-sections">
-            <div class="shadow p-2 rounded">
-                <header>
-                    <span class="text-success">Entradas</span>
-                    <button 
-                        class="btn bg-white rounded-circle shadow add-delete-buttons text-success" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#exampleModal"
-                        ng-click="setTypeMovement('Entrada', null)"
-                    > + </button>
-                </header>
-                <div class="mt-2 row align-items-center" ng-repeat="(key, item) in inputsList" ng-if="inputsList.length > 0">
-                    <div class="col">
-                        <label>{{item.description}}</label><br>
-                        <label>{{item.value | currency:"R$"}}</label>
-                    </div>
-                    <div class="col">
-                        <div class="row justify-content-end">
-                            <div class="col-3 col-md-2">
-                                <img 
-                                    src="/src/app/assets/lapis.png" 
-                                    alt="edit" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#exampleModal"
-                                    ng-click="setTypeMovement('Editar', item)"
-                                />
-                            </div>
-                            <div class="col-3 col-md-2">
-                                <img src="/src/app/assets/excluir.png" alt="edit" ng-click="deleteItem(item)"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-2" ng-if="inputsList.length === 0">
-                    <label>Não tem movimentos</label>
-                </div>
+    <section>
+        <div class="row">
+            <div class="col-3 text-center mb-3" ng-repeat="item in actionsList">
+                <button
+                    class="btn btn-info rounded-circle p-0"
+                    style="width: 66px; height: 66px;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    ng-click="newMovement.typeTransaction = item.value"
+                >
+                    <img
+                        src="/src/app/assets/{{item.image}}.png"
+                        alt="movement-images"
+                        width="45"
+                    >
+                </button>
             </div>
-        </section>
-        <section class="col-md-6 col-12 mx-auto p-3 inputs-outputs-sections">
-            <div class="shadow p-2 rounded">
-                <header>
-                    <span class="text-danger">Saídas</span>
-                    <button 
-                        class="btn bg-white rounded-circle shadow add-delete-buttons text-danger" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#exampleModal"
-                        ng-click="setTypeMovement('saída')"
-                    > + </button>
-                </header>
-                <div class="mt-2 row align-items-center" ng-repeat="(key, item) in outputsList" ng-if="outputsList.length > 0">
-                    <div class="col">
-                        <label>{{item.description}}</label><br>
-                        <label>{{item.value | currency:"R$"}}</label>
-                    </div>
-                    <div class="col">
-                        <div class="row justify-content-end">
-                            <div class="col-3 col-md-2">
-                                <img 
-                                    src="/src/app/assets/lapis.png" 
-                                    alt="edit" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#exampleModal"
-                                    ng-click="setTypeMovement('Editar', item)"
-                                />
-                            </div>
-                            <div class="col-3 col-md-2">
-                                <img src="/src/app/assets/excluir.png" alt="edit" ng-click="deleteItem(item)"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-2" ng-if="outputsList.length === 0">
-                    <label>Não tem movimentos</label>
-                </div>
-            </div>
-        </section>
-    </aside>
-
+            <hr>
+            <section class="col-12 mt-3">
+                <header class="h4">Extrato</header>
+                <ul>
+                    <li ng-repeat="item in inputsList" class="mb-2">
+                        <div>
+                            <header class="h5" style="font-weight: 400;">
+                                {{ actionsList[item.typeTransaction - 1].text }}
+                            </header>
+                            <span style="font-weight: 700;" ng-class="(item.accountIdRecipient == session.accountId) ? 'text-success' : 'text-danger'">{{ item.amount | currency:"R$" }}</span><br>
+                            <span style="font-weight: 300;">Remitente: {{item.senderName}}</span>
+                        </div><hr>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </section>
+</main>
+<aside>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 ng-if="typeMovement === 'Editar'" class="modal-title" id="exampleModalLabel">Editar item</h5>
-                    <h5 ng-if="typeMovement !== 'Editar'" class="modal-title" id="exampleModalLabel">Adicionar <span ng-class="(typeMovement === 'Entrada') ? 'text-success' : 'text-danger'">{{ typeMovement }}</span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ actionsList[newMovement.typeTransaction - 1].text }}</h5>
+                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="description" placeholder="Ex: Salário" ng-model="itemInfos.description">
-                            <label for="description">Descrição</label><br>
+                        <div class="mb-2" ng-if="newMovement.typeTransaction === 1">
+                            <input type="radio" name="recipient-radio" id="for-me" value="0" ng-model="value" ng-change="setRecipientDeposit(value)" ng-checked="true">
+                            <label for="for-me">Para mim</label>
+                            <input type="radio" name="recipient-radio" id="for-other" value="1" ng-model="value" ng-change="setRecipientDeposit(value)">
+                            <label for="for-other">Para outra conta</label>
+                        </div>
+                        <div class="form-floating" ng-if="newMovement.typeTransaction !== 1">
+                            <input type="text" class="form-control" id="description" placeholder="Ex: Salário" ng-model="newMovement.accountIdSender">
+                            <label for="description">Conta origem</label><br>
+                        </div>
+                        <div class="form-floating" ng-if="recipientDeposit != 0 || newMovement.typeTransaction !== 1">
+                            <input type="text" class="form-control" id="description" placeholder="Ex: Salário" ng-model="newMovement.accountIdRecipient">
+                            <label for="description">Conta destino</label><br>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="value" placeholder="Ex: 1200" ng-model="itemInfos.value">
+                            <input type="number" class="form-control" id="value" placeholder="Ex: 1200" ng-model="newMovement.amount">
                             <label for="value">Valor</label>
                         </div>
                     </form>
@@ -136,7 +116,7 @@
                     <button 
                     type="button" 
                     class="btn btn-primary" 
-                    ng-click="typeMovement === 'Editar' ? editItem(itemInfos) : addNewItem(itemInfos)"
+                    ng-click="addNewTransaction(newMovement)"
                     data-bs-dismiss="modal"
                     >
                         Adicionar
@@ -145,5 +125,4 @@
             </div>
         </div>
     </div>
-
-</div>
+</aside>
