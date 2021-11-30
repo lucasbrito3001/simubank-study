@@ -13,25 +13,25 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
     .state('balance', {
       url: '/balance',
-      templateUrl: './components/balance/views/balanceView.html',
+      templateUrl: './src/app/components/balance/views/balanceView.html',
       controller: 'balanceCtrl',
     })
 
     .state('statement', {
       url: '/statement',
-      templateUrl: './components/statement/views/statementView.html',
+      templateUrl: './src/app/components/statement/views/statementView.html',
       controller: 'statementCtrl'
     })
 
     .state('login', {
       url: '/login',
-      templateUrl: './components/login/views/loginView.html',
+      templateUrl: './src/app/components/login/views/loginView.html',
       controller: 'loginCtrl'
     })
 
     .state('register', {
       url: '/register',
-      templateUrl: './components/register/views/registerView.html',
+      templateUrl: './src/app/components/register/views/registerView.html',
       controller: 'registerCtrl'
     })
 });

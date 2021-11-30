@@ -30,3 +30,11 @@ ul {
     align-items: center;
     justify-content: center;
 }
+
+.home-infos {
+    margin-top: -35px;
+}
+
+ul {
+    list-style: none;
+}
