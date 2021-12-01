@@ -1,0 +1,13 @@
+.router-link {
+    text-decoration: none;
+    color: black;
+}
+
+.router-link:hover {
+    color: black;
+}
+
+.router-link:hover .pending-article {
+    background-color: rgb(247, 247, 247) !important;
+    transition: .4s;
+}

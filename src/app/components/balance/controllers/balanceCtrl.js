@@ -4,7 +4,7 @@ const API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
 angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$http',
     function ($scope, $state, $http) {
         // States
-        $scope.session = JSON.parse(window.localStorage.getItem('userSession'))[0];
+        $scope.session = window.localStorage.getItem('userSession') ? JSON.parse(window.localStorage.getItem('userSession'))[0] : '';
         $scope.typeMovement = '';
         $scope.idToEdit = '';
         $scope.itemInfos = {
@@ -42,11 +42,12 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
             if (!$scope.session) {
                 window.localStorage.clear();
                 $state.go('login')
+            } else {
+                $scope.getTransactions(resIn => {
+                    $scope.inputsList = resIn.data;
+                    $scope.calculateBalances();
+                })
             }
-            $scope.getTransactions(resIn => {
-                $scope.inputsList = resIn.data;
-                $scope.calculateBalances();
-            })
         }
 
         $scope.getTransactions = function (callback) {

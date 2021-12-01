@@ -20,7 +20,7 @@
 <main class="container home-infos">
 
     <section class="row rounded" ng-init="startCtrl()">
-        <div class="col-lg-6 col-md-5 col-12 mx-auto">
+        <article class="col-lg-6 col-md-5 col-12 mx-auto">
             <div class="p-3 px-4 align-items-center bg-secondary rounded shadow-sm" style="display: flex">
                 <div class="col-12">
                     <label class="lead">Saldo</label><br>
@@ -31,19 +31,21 @@
                     <img src="/src/app/assets/next.png" alt="" width="18">
                 </div> -->
             </div>
-        </div>
-        <div class="col-lg-6 col-md-7 col-12 mx-auto">
-            <div class="p-3 px-4 align-items-center bg-white shadow-sm rounded" style="display: flex">
-                <div class="col-11">
-                    <label class="lead">Transações pendentes</label><br>
-                    <p class="h5 mb-0">{{(reducedPendingInputs || 0) | currency:"R$"}}</p>
-                    <span class="text-muted text">Bloqueado</span>
+        </article>
+        <article class="col-lg-6 col-md-7 col-12 mx-auto">
+            <a ui-sref="confirmation" ui-sref-active="active" class="router-link">
+                <div class="p-3 px-4 align-items-center bg-white pending-article shadow-sm rounded" style="display: flex">
+                    <div class="col-11">
+                        <label class="lead">Transações pendentes</label><br>
+                        <p class="h5 mb-0">{{(reducedPendingInputs || 0) | currency:"R$"}}</p>
+                        <span class="text-muted text">Bloqueado</span>
+                    </div>
+                    <div class="col-1">
+                        <img src="/src/app/assets/next.png" alt="" width="18">
+                    </div>
                 </div>
-                <div class="col-1">
-                    <img src="/src/app/assets/next.png" alt="" width="18">
-                </div>
-            </div>
-        </div>
+            </a>
+        </article>
     </section>
     <hr>
     <section>

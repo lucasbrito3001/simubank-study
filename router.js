@@ -6,6 +6,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
   
   $stateProvider
     .state('home', {
+      abstract: true,
       url: '/',
       templateUrl: './index.html',
       controller: 'indexController',
@@ -17,10 +18,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'balanceCtrl',
     })
 
-    .state('statement', {
-      url: '/statement',
-      templateUrl: './src/app/components/statement/views/statementView.html',
-      controller: 'statementCtrl'
+    .state('confirmation', {
+      url: '/confirmation',
+      templateUrl: './src/app/components/confirmation/views/confirmationView.html',
+      controller: 'confirmationCtrl'
     })
 
     .state('login', {

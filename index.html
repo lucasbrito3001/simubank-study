@@ -9,12 +9,14 @@
     <script type="text/javascript" src="./router.js"></script>
     <link rel="stylesheet" href="./src/libs/css/bootstrap.css">
     <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./src/app/components/balance/styles/balanceStyle.css">
+    <link rel="stylesheet" href="./src/app/components/confirmation/styles/confirmationStyle.css">
     <link rel="shortcut icon" href="https://img.icons8.com/color/48/000000/angularjs.png" type="image/x-icon">
     <title>Training AngularJS</title>
 </head>
 <body ng-controller="indexController">
     
-    <ui-view class="ng-scope"></ui-view>
+    <ui-view></ui-view>
     
     <!-- CONTROLLERS -->
     <script type="module" src="./index.js"></script>
@@ -22,5 +24,6 @@
     <script src="./src/app/components/balance/controllers/balanceCtrl.js"></script>
     <script src="./src/app/components/login/controllers/loginCtrl.js"></script>
     <script src="./src/app/components/register/controllers/registerCtrl.js"></script>
+    <script src="./src/app/components/confirmation/controllers/confirmationCtrl.js"></script>
 </body>
 </html>
