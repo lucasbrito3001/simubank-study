@@ -1,5 +1,5 @@
-const API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
-// const API_URL = "http://localhost:4200/" // LOCALHOST API URL
+// const API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
+const API_URL = "http://localhost:4200/" // LOCALHOST API URL
 
 angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$http',
     function ($scope, $state, $http) {
@@ -12,14 +12,13 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
             value: ''
         };
 
-        $scope.recipientDeposit = 0;
+        $scope.recipientDeposit = true;
         $scope.itemValue = '';
         $scope.inputsList = [];
         $scope.outputsList = [];
 
-        $scope.setRecipientDeposit = function (value) { 
-            $scope.recipientDeposit = value;
-            $scope.newMovement.accountIdRecipient = value == 0 ? $scope.session.accountId : null
+        $scope.setRecipientDeposit = function () { 
+            $scope.recipientDeposit = !$scope.recipientDeposit;
         }
         
         $scope.actionsList = [
@@ -28,6 +27,12 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
             { image: 'payment', value: 3, text: 'Solicitação de pagamento' },
             { image: 'loan', value: 4, text: 'Empréstimo' }
         ];
+
+        $scope.statusList = {
+            completed: {text: "Aceito", color: "success"},
+            declined: {text: "Negado", color: "danger"},
+            pending: {text: "Pendente", color: "warning"}
+        };
 
         $scope.newMovement = {
             senderName: null,
@@ -79,7 +84,15 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
         }
 
         $scope.addNewTransaction = function () {
+            
+            if($scope.newMovement.typeTransaction === 1) $scope.newMovement.accountIdRecipient = $scope.newMovement.accountIdRecipient 
+            ? $scope.newMovement.accountIdRecipient 
+            : $scope.session.accountId
+            else if($scope.newMovement.typeTransaction === 3 || $scope.newMovement.typeTransaction === 4) $scope.newMovement.accountIdRecipient = $scope.session.accountId
+            else $scope.newMovement.accountIdSender = $scope.session.accountId
+
             $scope.newMovement.senderName = $scope.session.name;
+
             $http.post(API_URL + 'transactions/new', $scope.newMovement).then(() => {
                 $scope.startCtrl();
                 $scope.newMovement = {
@@ -89,6 +102,7 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
                     amount: null
                 }
             })
+
         }
 
         $scope.deleteItem = function (toDelete) {
@@ -104,6 +118,16 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
                         $scope.calculateBalances();
                     })
             })
+        }
+
+        $scope.closeActionsModal = function () {
+            $scope.recipientDeposit = true;
+            $scope.newMovement = {
+                accountIdSender: null,
+                accountIdRecipient: null,
+                typeTransaction: null,
+                amount: null
+            };
         }
 
         $scope.closeSession = function () {

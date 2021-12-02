@@ -1,0 +1,35 @@
+<header style="height: 20vh" class="bg-info">
+    <div class="container">
+        <div class="row align-items-center pt-2">
+            <h1 class="text-white px-0 col mb-0">
+                <span style="font-weight: 300;">Olá,</span> administrador !
+            </h1>
+            <div class="col-2 text-center align-self-center order-md-3 order-2">
+                <img class="action-buttons p-2 rounded-circle" src="/src/app/assets/power-off.png" alt="power-button" width="36" ng-click="closeSession()">
+            </div>
+        </div>
+    </div>
+</header>
+<main style="height: 83vh; margin-top: -8vh;" class="mb-2 container" ng-init="startCtrl()">
+    <section class="shadow px-2 rounded bg-white">
+        <ul class="mt-0 pb-2" ng-if="inputsList.length > 0">
+            <li ng-repeat="(key, item) in inputsList">
+                <header class="lead">
+                    {{ actionsList[item.typeTransaction].text }}
+                </header>
+                <div class="row">
+                    <div class="col-12 mb-2">
+                        <span>Requisitante: {{ item.senderName }}</span><br>
+                        <span>Valor: {{ item.amount | currency:"R$ " }}</span><br>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button class="btn btn-light" ng-click="completeTransaction(item, true)">Cancelar</button>
+                        <button class="btn btn-info" ng-click="completeTransaction(item)">Confirmar</button>
+                    </div>
+                </div>
+                <hr ng-if="key !== inputsList.length - 1" class="mb-0 mt-1">
+            </li>
+        </ul>
+        <p class="lead" ng-if="inputsList.length === 0">Não há transações pendentes! &#x1F601;</p>
+    </section>
+</main>

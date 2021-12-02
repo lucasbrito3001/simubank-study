@@ -34,8 +34,8 @@ angular.module('indexPage').controller('confirmationCtrl', ['$scope', '$state', 
             }, 0) : 0;
         }
 
-        $scope.confirmTransaction = function (transaction) {
-            $http.put(API_URL + `transactions/confirm?transactionId=${transaction.id}&confirmerId=${$scope.session.accountId}`).then(res => {
+        $scope.completeTransaction = function (transaction, isCancel = false) {
+            $http.put(API_URL + `transactions/confirm?transactionId=${transaction.id}&confirmerId=${$scope.session.accountId}&isCancel=${isCancel}`).then(res => {
                 if(res.data.status === 200) {
                     $scope.inputsList.splice($scope.inputsList.indexOf(transaction), 1)
                 }
