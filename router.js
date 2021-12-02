@@ -35,4 +35,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       templateUrl: './src/app/components/register/views/registerView.html',
       controller: 'registerCtrl'
     })
+
+    .state('admin-dashboard', {
+      url: '/admin/dashboard',
+      templateUrl: './src/app/components/admin/views/adminView.html',
+      controller: 'adminCtrl'
+    })
 });

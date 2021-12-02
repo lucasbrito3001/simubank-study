@@ -1,6 +1,7 @@
 var Module = angular.module('indexPage').controller('registerCtrl', ['$scope', '$state', '$http',
     function ($scope, $state, $http) {
-        $scope.API_URL = "https://finances-webapp.herokuapp.com/";
+        // $scope.API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
+        $scope.API_URL = "http://localhost:4200/"; // LOCALHOST API URL
         $scope.registerInfos = {
             name: null,
             phone: null,

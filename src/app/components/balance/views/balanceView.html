@@ -1,3 +1,4 @@
+<div class="text-center"><small style="font-weight: 100;">Nenhuma ação realizada dentro desse site será verdadeira.</small></div>
 <header class="bg-info pt-3 pb-5 container-fluid">
     <div class="row px-3">
         <div class="col-md-4 col-10 order-1 px-0">
@@ -13,11 +14,11 @@
             <p class="text-white lead mb-0"><span style="font-weight:500">Agência:</span> {{ session.agencyId }}</p>
         </div>
         <div class="col-md-4 col-2 text-center text-md-end align-self-center order-md-3 order-2">
-            <img src="/src/app/assets/power-off.png" alt="power-button" width="32" ng-click="closeSession()">
+            <img class="action-buttons p-2 rounded-circle" src="/src/app/assets/power-off.png" alt="power-button" width="40" ng-click="closeSession()">
         </div>
     </div>
 </header>
-<main class="container home-infos">
+<main class="container home-infos" style="min-height: 80vh;">
 
     <section class="row rounded" ng-init="startCtrl()">
         <article class="col-lg-6 col-md-5 col-12 mx-auto">
@@ -72,10 +73,11 @@
                     <li ng-repeat="item in inputsList" class="mb-2">
                         <div>
                             <header class="h5" style="font-weight: 400;">
-                                {{ actionsList[item.typeTransaction - 1].text }}
+                                <span>{{ actionsList[item.typeTransaction - 1].text }}</span>
                             </header>
                             <span style="font-weight: 700;" ng-class="(item.accountIdRecipient == session.accountId) ? 'text-success' : 'text-danger'">{{ item.amount | currency:"R$" }}</span><br>
-                            <span style="font-weight: 300;">Remitente: {{item.senderName}}</span>
+                            <span style="font-weight: 300;">Remetente: {{ item.senderName }}</span><br>
+                            <span style="font-weight: 300;">Status: <span class="text-{{statusList[item.transactionStatus].color}}">{{ statusList[item.transactionStatus].text }}</span></span>
                         </div><hr>
                     </li>
                 </ul>
@@ -84,28 +86,28 @@
     </section>
 </main>
 <aside>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-info text-white">
                     <h5 class="modal-title" id="exampleModalLabel">{{ actionsList[newMovement.typeTransaction - 1].text }}</h5>
-                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button ng-click="closeActionsModal()" type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="">
                         <div class="mb-2" ng-if="newMovement.typeTransaction === 1">
-                            <input type="radio" name="recipient-radio" id="for-me" value="0" ng-model="value" ng-change="setRecipientDeposit(value)" ng-checked="true">
+                            <input type="radio" name="recipient-radio" id="for-me" ng-value="true" ng-model="recipientDeposit" ng-change="setRecipientDeposit(value)">
                             <label for="for-me">Para mim</label>
-                            <input type="radio" name="recipient-radio" id="for-other" value="1" ng-model="value" ng-change="setRecipientDeposit(value)">
+                            <input type="radio" name="recipient-radio" id="for-other" ng-value="false" ng-model="recipientDeposit" ng-change="setRecipientDeposit()"> 
                             <label for="for-other">Para outra conta</label>
                         </div>
-                        <div class="form-floating" ng-if="newMovement.typeTransaction !== 1">
+                        <div class="form-floating" ng-if="newMovement.typeTransaction === 3">
                             <input type="text" class="form-control" id="description" placeholder="Ex: Salário" ng-model="newMovement.accountIdSender">
-                            <label for="description">Conta origem</label><br>
+                            <label for="description">Conta do pagador</label><br>
                         </div>
-                        <div class="form-floating" ng-if="recipientDeposit != 0 || newMovement.typeTransaction !== 1">
+                        <div class="form-floating" ng-if="!recipientDeposit || newMovement.typeTransaction === 2">
                             <input type="text" class="form-control" id="description" placeholder="Ex: Salário" ng-model="newMovement.accountIdRecipient">
-                            <label for="description">Conta destino</label><br>
+                            <label for="description">Conta de destino</label><br>
                         </div>
                         <div class="form-floating">
                             <input type="number" class="form-control" id="value" placeholder="Ex: 1200" ng-model="newMovement.amount">
@@ -114,10 +116,10 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button ng-click="closeActionsModal()" type="button" class="btn btn-secondary-outlined" data-bs-dismiss="modal">Cancelar</button>
                     <button 
                     type="button" 
-                    class="btn btn-primary" 
+                    class="btn btn-info" 
                     ng-click="addNewTransaction(newMovement)"
                     data-bs-dismiss="modal"
                     >

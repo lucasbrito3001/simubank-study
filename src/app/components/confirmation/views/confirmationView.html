@@ -1,3 +1,4 @@
+<div class="text-center"><small style="font-weight: 100;">Nenhuma ação realizada dentro desse site será verdadeira.</small></div>
 <header class="bg-info pt-3 pb-5 container-fluid">
     <div class="row px-3">
         <div class="col-md-3 col-3 text-start text-md-start align-self-center order-3 order-md-1">
@@ -18,12 +19,12 @@
             <p class="text-white lead mb-0"><span style="font-weight:500">Agência:</span> {{ session.agencyId }}</p>
         </div>
         <div class="col-md-3 col-3 text-start text-md-end align-self-center order-md-3 order-1">
-            <img class="action-buttons p-2 rounded-circle"src="/src/app/assets/power-off.png" alt="power-button" width="46" ng-click="closeSession()">
+            <img class="action-buttons p-2 rounded-circle" src="/src/app/assets/power-off.png" alt="power-button" width="46" ng-click="closeSession()">
         </div>
     </div>
 </header>
 
-<main class="container home-infos" ng-init="startCtrl()">
+<main class="container home-infos" ng-init="startCtrl()" style="min-height: 72vh;">
 
     <section class="row rounded">
         <article class="col mx-auto">
@@ -46,14 +47,16 @@
                         {{ actionsList[item.typeTransaction - 1].text }}
                     </header>
                     <div class="row">
-                        <div class="col-12 col-md-9">
+                        <div class="col-12">
                             <span style="font-weight: 700;" ng-class="(item.accountIdRecipient == session.accountId) ? 'text-success' : 'text-danger'">{{ item.amount | currency:"R$" }}</span><br>
-                            <span style="font-weight: 300;">Remitente: {{item.senderName}}</span>
+                            <span style="font-weight: 300;">Remetente: {{item.senderName}}</span>
                         </div>
-                        <div class="col-12 col-md-3 mt-2 mt-md-0">
+                        <div class="col-12 mt-2">
+                            <button class="btn btn-light" ng-click="completeTransaction(item, true)">Cancelar</button>
+                            <span class="mx-1"></span>
                             <button 
                                 class="btn btn-warning text-white"
-                                ng-click="confirmTransaction(item)"
+                                ng-click="completeTransaction(item)"
                                 ng-if="item.typeTransaction === 3 && (item.accountIdSender == session.accountId)"
                             >
                                 Confirmar
