@@ -1,6 +1,6 @@
 
-// const API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
-const API = "http://localhost:4200/" // LOCALHOST API URL
+const API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
+// const API = "http://localhost:4200/" // LOCALHOST API URL
 var Module = angular.module('indexPage').controller('loginCtrl', ['$scope', '$http', '$state',
 
 function ($scope, $http, $state) {
