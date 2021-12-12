@@ -1,6 +1,6 @@
 <div class="text-center"><small style="font-weight: 100;">Nenhuma ação realizada dentro desse site será verdadeira.</small></div>
 <header class="bg-info pt-3 pb-5 container-fluid">
-    <div class="row px-3">
+    <div class="row px-3 translate-balance">
         <div class="col-md-4 col-10 order-1 px-0">
             <h1 class=" mb-0 h3 text-white" style="font-weight: 100;">
                 Olá, <span style="font-weight: 300;">{{ session.name }}!</span> 
@@ -18,7 +18,7 @@
         </div>
     </div>
 </header>
-<main class="container home-infos" style="min-height: 80vh;">
+<main class="container home-infos translate-balance" style="min-height: 80vh;">
 
     <section class="row rounded" ng-init="startCtrl()">
         <article class="col-lg-6 col-md-5 col-12 mx-auto">
@@ -52,6 +52,7 @@
     <section>
         <div class="row">
             <div class="col-3 text-center mb-3" ng-repeat="item in actionsList">
+                <span>{{ item.text }}</span> <br>
                 <button
                     class="btn btn-info rounded-circle p-0"
                     style="width: 66px; height: 66px;"

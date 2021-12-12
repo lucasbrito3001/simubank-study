@@ -1,5 +1,5 @@
-const API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
-// const API_URL = "http://localhost:4200/" // LOCALHOST API URL
+// const API_URL = "https://finances-webapp.herokuapp.com/"; // HEROKU API URL
+const API_URL = "http://localhost:4200/" // LOCALHOST API URL
 
 angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$http',
     function ($scope, $state, $http) {
@@ -93,7 +93,7 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
 
             $scope.newMovement.senderName = $scope.session.name;
 
-            $http.post(API_URL + 'transactions/new', $scope.newMovement).then(() => {
+            $http.post(API_URL + 'transactions/new?accountId=' + $scope.session.accountId, $scope.newMovement).then(() => {
                 $scope.startCtrl();
                 $scope.newMovement = {
                     accountIdSender: null,

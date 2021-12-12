@@ -11,3 +11,16 @@
     background-color: rgb(247, 247, 247) !important;
     transition: .4s;
 }
+
+
+.translate-balance {
+    animation: translateBalance .5s;
+}
+
+@keyframes translateBalance {
+    from {
+        transform: translateX(-50px);
+    } to {
+        transform: translateX(0);
+    }
+}
