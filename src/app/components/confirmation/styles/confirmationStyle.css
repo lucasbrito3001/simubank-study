@@ -5,3 +5,15 @@
 .action-buttons:hover {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
+
+.translate-confirm {
+    animation: translateConfirm .5s;
+}
+
+@keyframes translateConfirm {
+    from {
+        transform: translateX(50px);
+    } to {
+        transform: translateX(0);
+    }
+}
