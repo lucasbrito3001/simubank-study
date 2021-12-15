@@ -11,10 +11,11 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
             description: '',
             value: ''
         };
-
+        
         $scope.recipientDeposit = true;
         $scope.itemValue = '';
         $scope.inputsList = [];
+        $scope.currentPage = 1;
         $scope.outputsList = [];
 
         $scope.setRecipientDeposit = function () { 
@@ -22,10 +23,10 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
         }
         
         $scope.actionsList = [
-            { image: 'deposit', value: 1, text: 'Depósito' },
-            { image: 'transfer', value: 2, text: 'Transferência' },
-            { image: 'payment', value: 3, text: 'Solicitação de pagamento' },
-            { image: 'loan', value: 4, text: 'Empréstimo' }
+            { image: 'deposit', value: 1, text: 'Depositar' },
+            { image: 'transfer', value: 2, text: 'Transferir' },
+            { image: 'payment', value: 3, text: 'Cobrar' },
+            { image: 'loan', value: 4, text: 'Pegar emprestado' }
         ];
 
         $scope.statusList = {
@@ -49,7 +50,17 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
                 $state.go('login')
             } else {
                 $scope.getTransactions(resIn => {
-                    $scope.inputsList = resIn.data;
+                    let makingPagination = true;
+
+                    while(makingPagination) {
+                        if(resIn.data.length > 7) {
+                            $scope.inputsList.push(resIn.data.splice(0, 7));
+                        } else {
+                            $scope.inputsList.push(resIn.data);
+                            makingPagination = false;
+                        }
+                    }
+
                     $scope.calculateBalances();
                 })
             }
