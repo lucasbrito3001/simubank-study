@@ -15,6 +15,7 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
         $scope.recipientDeposit = true;
         $scope.itemValue = '';
         $scope.inputsList = [];
+        $scope.statementList = [];
         $scope.currentPage = 1;
         $scope.outputsList = [];
 
@@ -51,12 +52,14 @@ angular.module('indexPage').controller('balanceCtrl', ['$scope', '$state', '$htt
             } else {
                 $scope.getTransactions(resIn => {
                     let makingPagination = true;
+                    $scope.statementList = [];
+                    $scope.inputsList = resIn.data;
 
                     while(makingPagination) {
                         if(resIn.data.length > 7) {
-                            $scope.inputsList.push(resIn.data.splice(0, 7));
+                            $scope.statementList.push(resIn.data.splice(0, 7));
                         } else {
-                            $scope.inputsList.push(resIn.data);
+                            $scope.statementList.push(resIn.data);
                             makingPagination = false;
                         }
                     }
